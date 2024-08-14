@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Room Finder</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Hotel Room Finder</h1>
+    <table id="hotel-rooms">
+        <thead>
+            <tr>
+                <th>Hotel_Name</th>
+                <th>Stars</th>
+                <th>Room_Code</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'api/index.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $.each(data, function(index, room) {
+                        $('#hotel-rooms tbody').append(
+                            '<tr>' +
+                            '<td>' + room.name + '</td>' +
+                            '<td>' + room.stars + '</td>' +
+                            '<td>' + room.code + '</td>' +
+                            '<td>' + room.total + '</td>' +
+                            '</tr>'
+                        );
+                    });
+                },
+                error: function() {
+                    alert('Error fetching hotel room data.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
